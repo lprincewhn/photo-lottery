@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="选择本地人物照片，开启现场抽签。无需上传，无需登录。">
+    <title>幸运定格 · 人物照片抽签器</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="lottery.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">✳</span> 幸运定格 <span class="brand-en">PHOTO LOTTERY</span></a>
+        <span class="privacy-pill"><span aria-hidden="true">●</span> 照片不上传 · 仅本机处理</span>
+      </header>
+
+      <main>
+        <section class="intro">
+          <div><p class="eyebrow">A LITTLE CHANCE. A BIG MOMENT.</p><h1>下一个幸运的人，<em>会是谁？</em></h1><p class="muted">把期待交给随机，把这一刻留给幸运。</p></div>
+          <button id="fullscreen" class="button quiet" type="button">⛶ 全屏展示</button>
+        </section>
+
+        <div class="workspace">
+          <section class="stage panel" aria-labelledby="stage-title">
+            <div class="stage-top"><h2 id="stage-title">幸运舞台</h2><span id="stage-state" class="badge">等待导入</span></div>
+            <div id="portrait" class="portrait">
+              <div id="placeholder" class="placeholder"><span class="spark" aria-hidden="true">✳</span><strong>让幸运，有名有姓</strong><span>先选择照片，再开启这一轮惊喜</span></div>
+              <img id="winner-photo" alt="" hidden>
+              <span class="photo-corner" aria-hidden="true">YOUR LUCKY MOMENT</span>
+            </div>
+            <div class="result" aria-live="polite" aria-atomic="true">
+              <p id="result-label" class="eyebrow">READY WHEN YOU ARE</p>
+              <h2 id="winner-name">幸运，即将揭晓</h2>
+              <p id="result-hint" class="muted">从右侧导入本地照片开始</p>
+            </div>
+            <button id="draw" class="button primary" type="button" disabled>开始抽签 <span aria-hidden="true">↗</span></button>
+            <p class="keyboard-hint">也可以按空格键开始 / 停止</p>
+          </section>
+
+          <aside class="side">
+            <section class="panel setup" aria-labelledby="setup-title">
+              <div class="section-heading"><h2 id="setup-title">准备候选人</h2><span class="step">01 / IMPORT</span></div>
+              <p class="muted">每人一张照片，文件名就是姓名。<br>例如：张三.jpg、李四.png</p>
+              <button id="choose-folder" class="button folder" type="button"><span aria-hidden="true">＋</span> 选择照片文件夹</button>
+              <button id="choose-files" class="button secondary" type="button">或，多选图片导入</button>
+              <input id="folder-input" type="file" accept="image/*" webkitdirectory multiple hidden>
+              <input id="files-input" type="file" accept="image/*" multiple hidden>
+              <p class="small muted">包含子文件夹；同名只保留一人。刷新页面后需要重新选择，抽签记录不会保存。</p>
+              <p id="import-status" class="notice" role="status">还没有选择照片</p>
+              <details id="import-details" hidden><summary>查看未导入的文件</summary><ul id="import-errors"></ul></details>
+              <div class="stats">
+                <div><strong id="total">0</strong><span>候选人</span></div>
+                <div><strong id="remaining">0</strong><span>可抽取</span></div>
+                <div><strong id="drawn">0</strong><span>已抽次数</span></div>
+              </div>
+              <div class="settings"><label><input id="no-repeat" type="checkbox" checked> 抽中过的人不再参与</label><button id="reset" class="text-button" disabled type="button">重置抽签</button></div>
+            </section>
+            <section class="panel history-panel" aria-labelledby="history-title">
+              <div class="section-heading"><h2 id="history-title">幸运名单</h2><span class="step">02 / MOMENTS</span></div>
+              <p id="history-empty" class="empty muted">每一次幸运，都将在这里留下名字。</p>
+              <ol id="history" class="history"></ol>
+            </section>
+          </aside>
+        </div>
+
+        <section class="panel candidates-panel" aria-labelledby="candidates-title">
+          <div class="section-heading"><h2 id="candidates-title">候选人一览 <span id="candidate-count" class="muted">/ 0</span></h2><span class="small muted">已抽中的照片会标记「已抽中」</span></div>
+          <p id="candidates-empty" class="empty muted">还没有候选人。选一个装满熟悉面孔的文件夹吧。</p>
+          <ul id="candidates" class="candidates"></ul>
+        </section>
+        <p id="error" class="error" role="alert" hidden></p>
+      </main>
+      <footer><span>只在此刻，只在本机。</span><span>独立随机结果 · 动画不决定中奖人</span></footer>
+    </div>
+  </body>
+</html>
