@@ -1,0 +1,13 @@
+{
+  "name": "photo-lottery",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local-only photo lottery, served as static files.",
+  "scripts": {
+    "test": "node --test tests/lottery.test.cjs",
+    "test:browser": "node --test tests/browser.test.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}
